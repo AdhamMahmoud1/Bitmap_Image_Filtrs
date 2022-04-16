@@ -145,13 +145,36 @@ void rotateImage()
         }
     }
 }
-
+void enlargeImage()
+{
+    int n;
+    cout<<"Please choose the quarter you want to Enlarge: ";
+    cin >> n;
+    for (int i = 0; i < SIZE; i++)
+    {
+        for (int j = 0; j < SIZE; j++)
+        {
+            if (n==1){
+                new_image[i][j] = image[i/2][j/2];
+            }
+            else if (n==2){
+                new_image[i][j] = image[i/2][SIZE/2 + j/ 2];
+            }
+            else if (n==3){
+                new_image[i][j] = image[SIZE / 2 + i / 2][j / 2];
+            }
+            else if (n==4){
+                new_image[i][j] = image[SIZE / 2 + i / 2][SIZE / 2 + j / 2];
+            }  
+        }
+    }
+}
 void display()
 {
     string n;
     loadImage();
     cout << "Hello user\nplease select a filtr to apply or 0 to exit: " << endl;
-    cout << "1- Black & White filter\n2- Invert Filter\n3- Merge Filter\n4-Flip Image\n5-Rotate Iimage\n9-Shrink Image\nc-Blur Image\ns- Save the Image to a file\n0-Exit" << endl;
+    cout << "1- Black & White filter\n2- Invert Filter\n3- Merge Filter\n4-Flip Image\n5-Rotate Iimage\n8_Enlarge Image\n9-Shrink Image\nc-Blur Image\ns- Save the Image to a file\n0-Exit" << endl;
 
     cin >> n;
     if (n=="1")
@@ -178,7 +201,12 @@ void display()
     {
         rotateImage();
         saveRotateImage();
-    }if(n == "c")
+    }
+    else if(n=="8")
+    {
+        enlargeImage();
+        saveRotateImage();
+    else if(n == "c")
     {
         blur();
         saveImage();
