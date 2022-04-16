@@ -169,12 +169,57 @@ void enlargeImage()
         }
     }
 }
+void moveQuarter(int idex, int i, int j )
+{
+    int temp = j;
+    if (idex==1)
+        for (int k=0; k < SIZE/2; i++,k++)
+        {
+            j = temp;
+            for (int z=0; z< SIZE/2; j++,z++)
+                new_image[i][j]=image[k][z];
+        }
+    else if (idex==2)
+        for (int k = 0; k< SIZE/2; i++,k++)
+        {
+            j = temp;
+            for (int z = SIZE/2; z< SIZE; j++,z++)
+                new_image[i][j]=image[k][z];
+        }
+    else if (idex ==3)
+        for (int k=  SIZE/2 ; k<SIZE; i++,k++)
+        {
+            j = temp;
+            for (int z=0; z< SIZE/2; j++,z++)
+                new_image[i][j]=image[k][z];
+        }
+    else if (idex ==4)
+        for (int k =  SIZE/2; k < SIZE; i++,k++)
+        {
+            j = temp;
+            for (int z = SIZE/2; z< SIZE; j++,z++)
+                new_image[i][j]=image[k][z];
+        }
+}
+void shuffleImage()
+{
+    int n ;
+    cout << "Enter the order of quarters you want: ";
+    for (int i =0 ; i <4 ; i++)
+    {
+        cin>>n;
+        if (i==0) moveQuarter(n,0,0);
+        else if (i==1) moveQuarter(n,0,SIZE/2);
+        else if (i==2) moveQuarter(n,SIZE/2,0);
+        else if (i==3) moveQuarter(n,SIZE/2,SIZE/2);
+    }
+}
 void display()
 {
     string n;
     loadImage();
     cout << "Hello user\nplease select a filtr to apply or 0 to exit: " << endl;
-    cout << "1- Black & White filter\n2- Invert Filter\n3- Merge Filter\n4-Flip Image\n5-Rotate Iimage\n8_Enlarge Image\n9-Shrink Image\nc-Blur Image\ns- Save the Image to a file\n0-Exit" << endl;
+    cout << "1- Black & White filter\n2- Invert Filter\n3- Merge Filter\n4-Flip Image\n5-Rotate Iimage\n8_Enlarge Image\n9-Shrink Image\nb_ Shuffle Image\nc-Blur Image\ns- Save the Image to a file\n0-Exit" << endl;
 
     cin >> n;
     if (n=="1")
@@ -206,6 +251,12 @@ void display()
     {
         enlargeImage();
         saveRotateImage();
+    }
+    else if(n=="b")
+    {
+        shuffleImage();
+        saveRotateImage();
+    }
     else if(n == "c")
     {
         blur();
