@@ -330,25 +330,31 @@ void display()
         if (n=="1")
         {
             Black_white_1();
+            saveImage();
         }
         else if (n=="2")
         {
             invertImage();
+            saveImage();
         }
         else if (n=="3")
         {
             merge();
+            saveImage();
         }
         else if (n=="4")
         {
             FlibImage_4();
+            saveImage();
         }
         else if (n=="5")
         {
             rotateImage();
+            saveImage();
         }else if (n == "7")
         {
             DetectImage();
+            saveImage();
 
         }else if(n=="8")
         {
@@ -357,6 +363,7 @@ void display()
         }else if (n == "a")
         {
             MirrorImage_a();
+            saveImage();
         }
         else if(n=="b")
         {
@@ -366,6 +373,7 @@ void display()
         else if(n == "c")
         {
             blur();
+            saveImage();
         }
         else if (n=="s")
         {
