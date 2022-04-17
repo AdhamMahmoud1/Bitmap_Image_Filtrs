@@ -63,6 +63,88 @@ void FlibImage_4()
     }
     
 }
+void DetectImage()
+{
+    int dif;
+    for (int i = 1; i <= SIZE; i++)
+    {
+        {
+            for(int j = 1; j <= SIZE; j++)
+            {
+                if(image[i][j] > image[i+1][j])
+                {
+                    dif = image[i][j] - image[i+1][j];
+                }if(image[i][j] < image[i+1][j])
+                {
+                    if(dif < (image[i+1][j] - image[i][j]))
+                        dif = image[i+1][j] - image[i][j];
+                }if(image[i][j] > image[i][j+1])
+                {
+                    if(dif < (image[i][j] - image[i][j+1]))
+                        dif = image[i][j] - image[i][j+1];
+                }if(image[i][j] < image[i][j+1])
+                {
+                    if(dif < (image[i][j+1] - image[i][j]))
+                        dif = image[i][j+1] - image[i][j];
+                }
+                
+
+                if(dif >35)
+                {
+                    image[i][j] = 0;
+                }else
+                {
+                    image[i][j] = 255;
+                }
+            }
+            
+        }
+    }
+}
+
+void MirrorImage_a()
+{
+    char choice;
+    cout << "Mirror (l)eft, (r)ight, (u)pper, (d)own side?";
+    cin >> choice;
+    if (choice == 'l')
+    {
+        for(int i = 0; i < SIZE; i++)
+        {
+            for(int j = SIZE; j > 0; j--)
+            {
+                image[i][j] = image[i][SIZE - j];
+            }
+        }
+    }if (choice == 'r')
+    {
+        for(int i = SIZE; i > 0; i--)
+        {
+            for(int j = 0; j < SIZE; j++)
+            {
+                image[i][j] = image[i][SIZE - j];
+            }
+        }
+    }if(choice == 'd')
+    {
+        for(int i = 0; i < SIZE; i++)
+        {
+            for(int j = SIZE; j > 0; j--)
+            {    
+                image[i][j] = image[SIZE - i][j];
+            }        
+        }
+    }if(choice == 'u')
+    {
+        for(int i = SIZE; i > 0; i--)
+        {
+            for(int j = 0; j < SIZE; j++)
+            {    
+                image[i][j] = image[SIZE - i][j];
+            }        
+        }
+    }
+}
 
 void blur(){
     for(int i=0;i<SIZE;i++){
@@ -169,6 +251,9 @@ void enlargeImage()
         }
     }
 }
+
+
+
 void moveQuarter(int idex, int i, int j )
 {
     int temp = j;
@@ -219,53 +304,76 @@ void display()
     string n;
     loadImage();
     cout << "Hello user\nplease select a filtr to apply or 0 to exit: " << endl;
-    cout << "1- Black & White filter\n2- Invert Filter\n3- Merge Filter\n4-Flip Image\n5-Rotate Iimage\n8_Enlarge Image\n9-Shrink Image\nb_ Shuffle Image\nc-Blur Image\ns- Save the Image to a file\n0-Exit" << endl;
+    do
+    {
+        cout << "1- Black & White filter\n";
+        cout << "2- Invert Filter\n";
+        cout << "3- Merge Filter\n";
+        cout << "4- Flip Image\n";
+        cout << "5- Rotate Iimage\n";
+        cout << "7- Detect Image\n";
+        cout << "8- Enlarge Image\n";
+        cout << "a- Mirror Image\n";
+        cout << "b- Shuffle Image\n";
+        cout << "c- Blur Image\n";
+        cout << "s- Save the Image to a file\n";
+        cout << "0- Exit" << endl;
 
-    cin >> n;
-    if (n=="1")
-    {
-        Black_white_1();
-        saveImage();
-    }
-    else if (n=="2")
-    {
-        invertImage();
-        saveImage();
-    }
-    else if (n=="3")
-    {
-        merge();
-        saveImage();
-    }
-    else if (n=="4")
-    {
-        FlibImage_4();
-        saveImage();
-    }
-    else if (n=="5")
-    {
-        rotateImage();
-        saveRotateImage();
-    }
-    else if(n=="8")
-    {
-        enlargeImage();
-        saveRotateImage();
-    }
-    else if(n=="b")
-    {
-        shuffleImage();
-        saveRotateImage();
-    }
-    else if(n == "c")
-    {
-        blur();
-        saveImage();
-    }
-    else if (n=="s")
-    {
-        saveImage();
-    }
+        // this piece of code to check if there is any extra empty lines 
+        if(cin.peek() == '\n')
+        {
+            cin.ignore();
+        }
+
+
+        cin >> n;
+        if (n=="1")
+        {
+            Black_white_1();
+        }
+        else if (n=="2")
+        {
+            invertImage();
+        }
+        else if (n=="3")
+        {
+            merge();
+        }
+        else if (n=="4")
+        {
+            FlibImage_4();
+        }
+        else if (n=="5")
+        {
+            rotateImage();
+        }else if (n == "7")
+        {
+            DetectImage();
+
+        }else if(n=="8")
+        {
+            enlargeImage();
+            saveRotateImage();
+        }else if (n == "a")
+        {
+            MirrorImage_a();
+        }
+        else if(n=="b")
+        {
+            shuffleImage();
+            saveRotateImage();
+        }
+        else if(n == "c")
+        {
+            blur();
+        }
+        else if (n=="s")
+        {
+            saveImage();
+        }
+    } while (n != "0");
+    
+    
 }
 int main()
 {
