@@ -177,7 +177,7 @@ void loadImage()
     strcat ( imageName,".bmp");
     readGSBMP(imageName, image);
 }
-void saveRotateImage()
+void saveNewImage()
 {
     char image_name[100];
     cout<<"Please enter the name of he new image: ";
@@ -236,49 +236,48 @@ void enlargeImage()
     {
         for (int j = 0; j < SIZE; j++)
         {
-            if (n==1){
+            if (n==1){  // enlarge the first quarter
                 new_image[i][j] = image[i/2][j/2];
             }
-            else if (n==2){
+            else if (n==2){ //enlarge the second quarter
                 new_image[i][j] = image[i/2][SIZE/2 + j/ 2];
             }
-            else if (n==3){
+            else if (n==3){  // enlarge the third quarter
                 new_image[i][j] = image[SIZE / 2 + i / 2][j / 2];
             }
-            else if (n==4){
+            else if (n==4){  // enlarge the forth quarter
                 new_image[i][j] = image[SIZE / 2 + i / 2][SIZE / 2 + j / 2];
             }  
         }
     }
 }
-
-
-
-void moveQuarter(int idex, int i, int j )
+// I built this function to check the input from user and I call it from 
+// shuffle function.
+void moveing(int quarter, int i, int j )
 {
     int temp = j;
-    if (idex==1)
+    if (quarter==1)
         for (int k=0; k < SIZE/2; i++,k++)
         {
             j = temp;
             for (int z=0; z< SIZE/2; j++,z++)
                 new_image[i][j]=image[k][z];
         }
-    else if (idex==2)
+    else if (quarter==2)
         for (int k = 0; k< SIZE/2; i++,k++)
         {
             j = temp;
             for (int z = SIZE/2; z< SIZE; j++,z++)
                 new_image[i][j]=image[k][z];
         }
-    else if (idex ==3)
+    else if (quarter ==3)
         for (int k=  SIZE/2 ; k<SIZE; i++,k++)
         {
             j = temp;
             for (int z=0; z< SIZE/2; j++,z++)
                 new_image[i][j]=image[k][z];
         }
-    else if (idex ==4)
+    else if (quarter ==4)
         for (int k =  SIZE/2; k < SIZE; i++,k++)
         {
             j = temp;
@@ -293,10 +292,14 @@ void shuffleImage()
     for (int i =0 ; i <4 ; i++)
     {
         cin>>n;
-        if (i==0) moveQuarter(n,0,0);
-        else if (i==1) moveQuarter(n,0,SIZE/2);
-        else if (i==2) moveQuarter(n,SIZE/2,0);
-        else if (i==3) moveQuarter(n,SIZE/2,SIZE/2);
+        if (i==0)
+            moveing(n,0,0);
+        else if (i==1) 
+            moveing(n,0,SIZE/2);
+        else if (i==2) 
+            moveing(n,SIZE/2,0);
+        else if (i==3) 
+            moveing(n,SIZE/2,SIZE/2);
     }
 }
 void display()
