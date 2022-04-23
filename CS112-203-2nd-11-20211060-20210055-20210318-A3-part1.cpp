@@ -285,7 +285,8 @@ void moveing(int quarter, int i, int j )
                 new_image[i][j]=image[k][z];
         }
 }
-void shuffleImage()
+
+void shuffleImage()  // the main function for shuffle
 {
     int n ;
     cout << "Enter the order of quarters you want: ";
@@ -302,93 +303,73 @@ void shuffleImage()
             moveing(n,SIZE/2,SIZE/2);
     }
 }
-void display()
+
+int main()
 {
     string n;
     loadImage();
     cout << "Hello user\nplease select a filtr to apply or 0 to exit: " << endl;
-    do
-    {
-        cout << "1- Black & White filter\n";
-        cout << "2- Invert Filter\n";
-        cout << "3- Merge Filter\n";
-        cout << "4- Flip Image\n";
-        cout << "5- Rotate Iimage\n";
-        cout << "7- Detect Image\n";
-        cout << "8- Enlarge Image\n";
-        cout << "a- Mirror Image\n";
-        cout << "b- Shuffle Image\n";
-        cout << "c- Blur Image\n";
-        cout << "s- Save the Image to a file\n";
-        cout << "0- Exit" << endl;
+    cout << "1- Black & White filter\n";
+    cout << "2- Invert Filter\n";
+    cout << "3- Merge Filter\n";
+    cout << "4- Flip Image\n";
+    cout << "5- Rotate Iimage\n";
+    cout << "7- Detect Image\n";
+    cout << "8- Enlarge Image\n";
+    cout << "a- Mirror Image\n";
+    cout << "b- Shuffle Image\n";
+    cout << "c- Blur Image\n";
+    cout << "s- Save the Image to a file\n";
+    cout << "0- Exit" << endl;
 
-        // this piece of code to check if there is any extra empty lines 
-        if(cin.peek() == '\n')
-        {
+    // this piece of code to check if there is any extra empty lines 
+    if(cin.peek() == '\n')
             cin.ignore();
-        }
-
-
-        cin >> n;
-        if (n=="1")
-        {
-            Black_white_1();
-            
-        }
-        else if (n=="2")
-        {
+    
+    cin >> n;
+    if (n=="1"){
+        Black_white_1();
+        saveImage();           
+    }
+    else if (n=="2"){
             invertImage();
-            
-        }
-        else if (n=="3")
-        {
+            saveNewImage();     
+    }
+    else if (n=="3"){
             merge();
-            
-        }
-        else if (n=="4")
-        {
+            saveImage();       
+    }
+    else if (n=="4"){
             FlibImage_4();
-            
-        }
-        else if (n=="5")
-        {
+            saveImage();
+    }
+    else if (n=="5"){
             rotateImage();
-            
-        }else if (n == "7")
-        {
+            saveNewImage();
+    }
+    else if (n == "7"){
             DetectImage();
-            
-
-        }else if(n=="8")
-        {
+            saveImage();
+    }
+    else if(n=="8"){
             enlargeImage();
-            
-        }else if (n == "a")
-        {
+            saveNewImage();
+    }
+    else if (n == "a"){
             MirrorImage_a();
             saveImage();
-        }
-        else if(n=="b")
-        {
+    }
+    else if(n=="b"){
             shuffleImage();
-            
-        }
-        else if(n == "c")
-        {
+            saveNewImage();   
+    }
+    else if(n == "c"){
             blur();
-            
-        }
-        else if (n=="s")
-        {
+            saveImage();  
+    }
+    else if (n=="s"){
             saveImage();
-        }
-    } while (n != "0");
-    
-    
-}
-int main()
-{
-    display();
+    }
 
     return 0;
 }
