@@ -8,6 +8,82 @@ using namespace std;
 unsigned char image[SIZE][SIZE];
 unsigned char new_image[SIZE][SIZE];
 
+void shrink(){
+    int c;
+    cout<<"shrink to (1/2) ,(1/3) or (1/4) ?"<<endl;
+    cin>>c;
+    if (c==2){
+        shrinkTohalf();
+    }
+    else if (c==3){
+        shrinkToOneThird();
+    }
+    else if (c==4){
+        shrinkToquad();
+    }
+}
+void shrinkTohalf(){ // shrink the image to half
+    for(int i=0;i<SIZE;i++){
+        for(int j=0;j<SIZE;j++){
+          image[i/2][j/2]=(image[i+1][j]+image[i][j+1]+image[i+1][j+1]+image[i][j])/4;
+          new_image[i/2][j/2]=image[i/2][j/2];
+        }
+    }
+}
+void shrinkToquad(){ // shrink the image to quarter
+    for(int i=0;i<SIZE;i++){
+        for(int j=0;j<SIZE;j++){
+          image[i/4][j/4]=(image[i][j]+image[i][j+1]+image[i][j+2]+image[i][j+3]+image[i+1][j]+image[i+2][j]+image[i+3][j]+image[i+1][j+1]+image[i+1][j+2]+image[i+1][j+3]+image[i+2][j+1]+image[i+2][j+2]+image[i+2][j+3]+image[i+3][j+1]+image[i+3][j+2]+image[i+3][j+3])/16;
+          new_image[i/4][j/4]=image[i/4][j/4];
+        }
+    }
+}
+void shrinkToOneThird(){ // shrink the image to 1/3
+    for(int i=0;i<SIZE;i++){
+        for(int j=0;j<SIZE;j++){
+          image[i/3][j/3]=(image[i][j]+image[i][j+1]+image[i][j+2]+image[i+1][j]+image[i+1][j+1]+image[i+1][j+2]+image[i+2][j+2]+image[i+2][j+1]+image[i+2][j])/9;
+          new_image[i/3][j/3]=image[i/3][j/3];
+        }
+    }
+} 
+
+void darken(){
+for (int i=0;i<SIZE;i++){
+        for(int j=0;j<SIZE;j++){
+           
+             image[i][j]-=(image[i][j])/2;
+         
+        }
+
+}
+}
+void lighten(){
+
+for (int i=0;i<SIZE;i++){
+        for(int j=0;j<SIZE;j++){
+            if(image[i][j]<=(SIZE/2)){
+            image[i][j]+=(image[i][j])/2;
+            }
+            else{
+                image[i][j]=image[SIZE][SIZE];
+            }
+        }
+    }
+}
+void darkenOrLighten(){
+    char choise;
+   cout<<"do want to (d)arken or (l)igthen ?"<<endl;
+   cin>>choise;
+ switch (choise)
+ {
+ case 'd':case 'D':{
+    darken();
+ }
+case 'l' :case 'L':{
+     lighten();
+     }     
+ }
+    }
 void Black_white_1()
 {
     int avg;
@@ -347,6 +423,10 @@ int main()
             rotateImage();
             saveNewImage();
     }
+    else if (n=="6"){
+        darkenOrLighten();
+        saveImage();  
+    }
     else if (n == "7"){
             DetectImage();
             saveImage();
@@ -355,8 +435,14 @@ int main()
             enlargeImage();
             saveNewImage();
     }
+    else if (n=="9")
+    {
+        shrink();
+        saveNewImage();
+    }
+    
     else if (n == "a"){
-            MirrorImage_a();
+            MirrorImage_a();    
             saveImage();
     }
     else if(n=="b"){
